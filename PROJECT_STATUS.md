@@ -28,7 +28,7 @@
 ## Developer tooling
 
 - Lint (Ruff) and test (pytest) baseline with a Windows GitHub Actions workflow; see [docs/development/quality_checks.md](docs/development/quality_checks.md). It locks in no application runtime dependencies.
-- Checked locally on Linux only; the Windows CI matrix is unproven until the workflow runs on GitHub. No hardware involved.
+- Checked locally on Linux, and the workflow (`windows-latest`, Python 3.11 and 3.13) passed on its pull request. Not yet run on a developer's own Windows machine. No hardware involved.
 
 ## Hardware checks
 
