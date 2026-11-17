@@ -38,8 +38,6 @@ class StrictFakeMido:
     which proves the diagnostic stays read-only.
     """
 
-    _ALLOWED = {"get_input_names", "get_output_names", "backend"}
-
     def __init__(self, inputs=(), outputs=(), input_error=None, output_error=None):
         self._inputs = list(inputs)
         self._outputs = list(outputs)
