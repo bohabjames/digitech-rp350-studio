@@ -14,15 +14,28 @@ The RP350 manual documents USB for X-Edit communication and audio streaming. The
 
 gdigi's README lists RP150, RP155, RP250, RP255, RP355, RP500, RP1000, GNX3000, and GNX4K; it does not list RP350. Its source is useful for DigiTech framing, packing, XOR checksum, and parameter serialization, but model-specific application remains unverified.
 
-## Supplied capture
+## Captures
 
-`midi DIGI TECH 350 1st test.syx` — 3,174 bytes; SHA-256 `BAAED1E3D7336B7B48FC996E8256F335873741027C330A8ADD9CED9D4F9351E8`.
+### Initial startup
 
-Observed: 151 frames, common header `F0 00 00 10 00 5E 03`; 141 `0x41`, five `0x3B`, five `0x70`; all pass gdigi's XOR checksum calculation.
+`rp350 x-edit start up.syx` — 2,617 bytes; 10 frames; all pass the XOR checksum calculation. Command counts: one each `0x02`, `0x09`, `0x11`, `0x2B`, `0x2C`, `0x2D`, `0x3B`, `0x7E`; two `0x22`. Includes long messages with readable effect/library labels and one long structured record. Exact command meanings are not yet validated for RP350.
 
-**Hardware observation from user:** Replaying this file through a Windows MIDI SysEx utility changes a setting on the RP350. This establishes that replaying the capture can affect the pedal, but does not identify the setting or isolate which message causes the change.
+### Analog Delay enable and Level +1
 
-Hypothesis: Many `0x41` frames share tentative fields `0x2009 / 0x1A` with changing bytes. Device-specific meaning and value encoding are not established. A flattened .syx has no timestamps or direction metadata.
+`rp 350 x-edit analog delay - level up one.syx` — 86 bytes, six frames: four `0x41` messages bracketed by two `0x7E` messages. All pass XOR checks. User action: enabled Analog Delay and increased its Level one step.
+
+### Subsequent capture, two more upward steps
+
+`rp 350 x-edit up two (from analog delay - level up one).syx` — 148 bytes, ten frames. It contains two repeated four-message groups, each bracketed by `0x7E` status messages. Comparing corresponding `0x41` messages:
+- Three parameter records appear unchanged across the captures.
+- One record has visible payload bytes `22 06 1A 66`, then `22 06 1A 68`, then `22 06 1A 6A` (checksum excluded).
+- The user reports this capture represents two further Level steps from the prior capture. The changing record therefore tracks the Level action in these captures.
+
+**Interpretation, provisional:** Under gdigi's message layout, these bytes appear consistent with parameter ID `0x2206`, position `0x1A`, value bytes progressing `0x66 -> 0x68 -> 0x6A`. gdigi defines ID 0x2206 as an effects-library level maximum, but gdigi does not list RP350. Treat the ID name and numeric scaling as a hypothesis pending RP350-specific confirmation. This is the first controlled mapping candidate; do not yet encode it as a confirmed general Analog Delay Level mapping.
+
+### Original long capture
+
+`midi DIGI TECH 350 1st test.syx` — 3,174 bytes; 151 frames; common header `F0 00 00 10 00 5E 03`; 141 `0x41`, five `0x3B`, five `0x70`; all pass gdigi's XOR checksum calculation. User reports replaying this file changes a setting on the pedal, but the exact setting/message is not identified.
 
 ## Firmware updater boundary
 
