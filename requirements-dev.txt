@@ -1,0 +1,4 @@
+# Development tooling only (tests and lint). These are NOT application
+# runtime dependencies; the runtime stack has not been chosen.
+pytest>=8
+ruff>=0.8

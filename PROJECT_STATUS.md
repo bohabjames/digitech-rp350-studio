@@ -25,6 +25,11 @@
 3. Correlate a capture with one known action and record the pedal state.
 4. Review an RP350-specific protocol specification before live writes.
 
+## Developer tooling
+
+- Lint (Ruff) and test (pytest) baseline with a Windows GitHub Actions workflow; see [docs/development/quality_checks.md](docs/development/quality_checks.md). It locks in no application runtime dependencies.
+- Checked locally on Linux, and the workflow (`windows-latest`, Python 3.11 and 3.13) passed on its pull request. Not yet run on a developer's own Windows machine. No hardware involved.
+
 ## Hardware checks
 
 | Check | Status |

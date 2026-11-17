@@ -1,0 +1,16 @@
+# Tool configuration only. No [project] or [build-system] table on purpose:
+# the application's name, packaging, Python requirement and runtime
+# dependencies are not decided yet and must not be locked in by tooling.
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra"
+
+[tool.ruff]
+line-length = 100
+# Lowest Python version in the CI matrix (.github/workflows/ci.yml).
+target-version = "py311"
+
+[tool.ruff.lint]
+# E/W: pycodestyle, F: pyflakes, I: import sorting, B: bugbear.
+select = ["E", "W", "F", "I", "B"]
