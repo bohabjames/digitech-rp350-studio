@@ -32,3 +32,5 @@
 | Confirm Windows MIDI ports and names | Pending |
 | Correlate one changing value to known pedal/UI action | Pending |
 | Validate documented parameter read/write | Pending |
+
+Port-listing aid for the first check: [docs/development/midi_diagnostic.md](docs/development/midi_diagnostic.md) (`tools/midi_diagnostic.py`, read-only). Tested with mocks only; not yet run on Windows or against the RP350, so the check above remains pending.
